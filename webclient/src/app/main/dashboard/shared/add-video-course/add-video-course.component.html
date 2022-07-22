@@ -1,0 +1,91 @@
+
+<div id="lock" fxLayout="column">
+    
+        <div id="lock-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+    
+            <div id="lock-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+    
+                <div class="lock-form-header" fxLayout="column" fxLayoutAlign="center center"
+                     fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="start center">
+     
+                    <div class="title_head">
+                        <div class="title">ADD VIDEO</div>                        
+                    </div>
+    
+                </div>
+    
+                <form name="lockForm" [formGroup]="courseForm"  (ngSubmit)="submit($event)" novalidate>
+    
+                 
+                  <mat-form-field appearance="outline">
+                         <mat-label>VIDEO TITLE</mat-label>
+                        <input matInput formControlName="title">
+                         
+                        <mat-error *ngIf="!courseForm.get('title').hasError('required') &&
+                                    courseForm.get('title').hasError('title')">
+                            Please enter video title.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                         <mat-label>VIDEO DESCRIPTION</mat-label>
+                        <input matInput formControlName="description">
+                        
+                        <mat-error *ngIf="!courseForm.get('description').hasError('required') &&
+                                    courseForm.get('description').hasError('description')">
+                            Please enter video description.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>CHAPTER</mat-label>
+                        <mat-select  required [(value)]="selectedChapter">
+                            <mat-option *ngFor="let item of chapters" [value]="item">
+                            {{item.name}}
+                            </mat-option>
+                        </mat-select>                
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>DURATION</mat-label>
+                        <input matInput  maxlength="10">                        
+                        <mat-error>
+                             Please enter course duration.
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="upload-area">
+                                <div class="drop-container" ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }">
+                                    <h3 class="file_name" *ngIf="files.length>0"  >{{files[0].name}}</h3>
+                                    <h1 *ngIf="files.length===0"><span style="color:#039be5">BROWSE</span><span style="color:#D5D5D5"> OR DROP FILES HERE</span> </h1>
+                                    <h4 *ngIf="files.length>0"><span style="color:rgb(126, 126, 126)">BROWSE OR DROP FILES HERE</span></h4>
+                                    <input type="file" style="display:none" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" #file >
+                                    <button  class="file-button" (click)="file.click()"></button>
+                                </div>                                
+                                <button type="button" class="start-upload-btn btn btn-success" (click)="startUpload($event)" [disabled]="files.length==0 " >
+                                    Start Upload
+                                </button>  
+                              <!--   <button type="button" class="start-upload-btn btn btn-success" (click)="addThumnail($event)" *ngIf="showTumbButton"  >
+                                    Create Thumbnail
+                                </button>   --> 
+                                      
+                    </div>
+                    <div class="video-thumb-con" >                         
+                         <img #thumnailImg  width="300px"/>
+                         <video  #videotag  id="main-video" controls (loadedmetadata)="metaDataLoaded($event)" style="display:none">                                           
+                         </video>
+                         <canvas #canvas id="video-canvas" style="display: none"></canvas>     
+                                       
+                    </div>
+
+                  <button mat-raised-button class="submit-button" color="accent" aria-label="UNLOCK" 
+                  [class.spinnerBtn]="showSpinner">
+                        SUBMIT
+                    </button>
+    
+                </form>
+    
+                
+    
+            </div>
+    
+        </div>
+    
+    </div>
+    

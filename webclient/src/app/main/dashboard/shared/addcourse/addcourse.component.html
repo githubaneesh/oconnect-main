@@ -1,0 +1,109 @@
+
+<div id="lock" fxLayout="column">
+    
+        <div id="lock-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+    
+            <div id="lock-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+    
+                <div class="lock-form-header" fxLayout="column" fxLayoutAlign="center center"
+                     fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="start center">
+    
+                   <!-- <div class="avatar-container">
+                        <img class="avatar big" src="assets/images/avatars/katherine.jpg">                    
+                    </div> -->
+    
+                    <div class="title_head">
+                        <div class="title">ADD COURSE</div>                        
+                    </div>
+    
+                </div>
+    
+                <form name="lockForm" [formGroup]="courseForm"  (ngSubmit)="submit($event)" novalidate>
+    
+                  <mat-form-field appearance="outline">
+                        <mat-label>TRACK MODE</mat-label>
+                        <mat-select  required [(value)]="trackedItem">
+                            <mat-option *ngFor="let item of trackmodes" [value]="item">
+                            {{item.label}}
+                            </mat-option>
+                        </mat-select>                 
+                  </mat-form-field>
+                  <div class="upload-area">
+                    <!-- <div class="drop-container" ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }">
+                                <h3 class="file_name" *ngIf="files.length>0"  >{{files[0].name}}</h3>
+                                <h1 *ngIf="files.length===0"><span style="color:#039be5">BROWSE</span><span style="color:#D5D5D5"> OR DROP FILES HERE</span> </h1>
+                                <h4 *ngIf="files.length>0"><span style="color:rgb(126, 126, 126)">BROWSE OR DROP FILES HERE</span></h4>
+                                <input type="file" style="display:none" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" #file >
+                                <button  class="file-button" (click)="file.click()"></button>
+                            </div>
+                            <button type="button" class="start-upload-btn btn btn-success" (click)="startUpload($event)" [disabled]="files.length==0">
+                                Start Upload
+                            </button>             -->
+                            <div class="col-md-12">
+                                <div class="fileupload" appDragDropFileUpload (click)="fileField.click()"
+                                    (fileDropped)="upload($event)">
+                                    <span class="ddinfo">Choose a file or drag here</span>
+                                    <input type="file" name="avatars" #fileField (change)="upload($event.target.files)" hidden multiple>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="image-list" *ngFor="let file of fileArr; let i = index">
+                                    <div class="profile">
+                                        <img [src]="sanitize(file['url'])" alt="">
+                                    </div>
+                                    <p>{{file.item.name}}</p>
+                                </div>
+                                <p class="message">{{msg}}</p>
+                            </div>
+                    </div>
+                  <mat-form-field appearance="outline" *ngIf="trackedItem.value != 'cmi5/xapi'">
+                         <mat-label>COURSE TITLE</mat-label>
+                        <input matInput formControlName="title">
+                         
+                        <mat-error *ngIf="!courseForm.get('title').hasError('required') &&
+                                    courseForm.get('title').hasError('title')">
+                            Please enter course title.
+                        </mat-error>
+                    </mat-form-field>                    
+                    <mat-form-field appearance="outline">
+                        <mat-label>CHAPTER</mat-label>
+                        <mat-select  required [(value)]="selectedChapter">
+                            <mat-option *ngFor="let item of chapters" [value]="item">
+                            {{item.name}}
+                            </mat-option>
+                        </mat-select>                
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>DURATION IN SECONDS</mat-label>
+                        <input matInput type="number" formControlName="duration" maxlength="10">
+                        
+                        <mat-error>
+                             Please enter course duration.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" *ngIf="trackedItem.value != 'cmi5/xapi'">
+                         <mat-label>COURSE DESCRIPTION</mat-label>
+                        <textarea matInput formControlName="description" matTextareaAutosize ></textarea>
+                        
+                        <mat-error *ngIf="!courseForm.get('description').hasError('required') &&
+                                    courseForm.get('description').hasError('description')">
+                            Please enter course description.
+                        </mat-error>
+                    </mat-form-field>
+
+
+                  <button mat-raised-button class="submit-button" color="accent" aria-label="UNLOCK" 
+                  [class.spinnerBtn]="showSpinner">
+                        SUBMIT
+                    </button>
+    
+                </form>
+    
+                
+    
+            </div>
+    
+        </div>
+    
+    </div>
+    

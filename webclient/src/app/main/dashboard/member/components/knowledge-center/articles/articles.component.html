@@ -1,0 +1,38 @@
+<div class="cards-con">
+    <div class="cards">
+             <div class="card" *ngFor="let article of articles">               
+                <div class="card-preview">
+
+                    <div class="fuse-card">
+                        <img src="assets/images/cards/card2.jpg">
+                        <div class="p-16">
+                            <div class="h1">Top eastern road trips</div>
+                            <div class="h4 secondary-text">2,000 miles of wonder</div>
+                        </div>
+                        <div class="p-8 pt-0" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <button mat-button color="accent">SHARE</button>
+                                <button mat-button color="accent">EXPLORE</button>
+                            </div>
+                            <button mat-icon-button aria-label="expand card"
+                                    (click)="article.expand = !article.expand">
+                                <mat-icon *ngIf="article.expand">keyboard_arrow_up</mat-icon>
+                                <mat-icon *ngIf="!article.expand">keyboard_arrow_down</mat-icon>
+                            </button>
+                        </div>
+
+                        <div class="card-expand-area" *ngIf="article.expand" [@expandCollapse]>
+                            <div class="card-expanded-content">
+                                Card content that exceeds the maximum card height is truncated and does not scroll, but
+                                the card can be expanded. Once expanded, the card may exceed the maximum height of the
+                                view. In this case, the card will scroll with the card collection.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+          </div>
+
+           
+    </div>
+</div>
