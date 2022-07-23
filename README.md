@@ -1,13 +1,8 @@
-# Fuse - Angular
-
-Material Design Admin Template with Angular 8 and Angular Material
+# OCONNECT WEB APPLICATION
+ 
 
 ## The Community
-
-Share your ideas, discuss Fuse and help each other.
-
-[Click here](http://fusetheme.com/community) to see our Community page.
-
+ 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
